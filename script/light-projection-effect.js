@@ -56,8 +56,9 @@ texture.load(
 scene.add(floorMesh);
 //地板上的物体
 var boxMat = new THREE.MeshStandardMaterial({ //标准网格材质
-    color: 0xfff,
-    roughness: .75,
+    color: 0xffffff,
+    roughness: .7,
+    bumpScale: 0.002,
     metalness:.2
 })
 texture.load(
@@ -93,12 +94,13 @@ var material = new THREE.MeshStandardMaterial({
     //自身发光
     emissive: 0xFFFFFF,
     //自身发光强度
-    emissiveIntensity:15
+    emissiveIntensity:8
 });
 pointLight.add(new THREE.Mesh(lightgeometry, material));
 pointLight.position.set(0, 2, 0);
 //对光开启影子
 pointLight.castShadow = true;
+//将点光源添加到场景中
 scene.add(pointLight);
 //将整个渲染器加到dom中
 document.body.appendChild(webGLRender.domElement);
@@ -109,5 +111,6 @@ function render() {
     requestAnimationFrame(render);//添加动画效果
     var time = Date.now() * 0.0005;
     pointLight.position.y = Math.cos(time) * 0.75 + 1.5;//给点光源添加动态移动效果
+    //全局添加投影
     webGLRender.shadowMap.enabled = true;
 }
