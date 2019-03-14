@@ -1,19 +1,19 @@
 //创建一个场景，这是基础
 var scene = new THREE.Scene();
 //创建一个透视相机，作为眼睛以某种角度来看场景中的物体
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 scene.add(camera);//将相机添加到场景中
 var webGLRender = new THREE.WebGLRenderer({//创建render渲染器
     alpha:true,//是否包含透明度
     antialias:true,//是否执行抗锯齿
 })
 
-webGLRender.setClearColor(new THREE.Color(0xffffff));//设置颜色及其透明度
+webGLRender.setClearColor(new THREE.Color(0xffffff,0));//设置颜色及其透明度
 webGLRender.setClearAlpha(0);//设置alpha
 webGLRender.setSize(window.innerWidth, window.innerHeight, false);//调整输出canvas的大小
 
 //调整眼睛的位置
-camera.position.x = 0;
+camera.position.x = -4;
 camera.position.y = 2;
 camera.position.z = 4;
 camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -49,7 +49,20 @@ scene.add(floorMesh);
 //如果没有环境光整个场景都是漆黑的
 var ambientLight = new THREE.AmbientLight(0Xffffff);
 scene.add(ambientLight);
-
+//添加点光源
+var pointLight = new THREE.PointLight(0xffee88, 1, 100, 2);
+//添加点光源的具体表现
+var lightgeometry = new THREE.SphereBufferGeometry(0.02, 16, 8);
+var material = new THREE.MeshStandardMaterial({
+    color: 0xFFFFFF,
+    //自身发光
+    emissive: 0xFFFFFF,
+    //自身发光强度
+    emissiveIntensity:5
+});
+pointLight.add(new THREE.Mesh(lightgeometry, material));
+pointLight.position.set(0, 2, 0);
+scene.add(pointLight);
 //将整个渲染器加到dom中
 document.body.appendChild(webGLRender.domElement);
 render();
@@ -58,4 +71,5 @@ function render() {
     webGLRender.render(scene, camera);//用相机(camera)渲染一个场景(scene)
     requestAnimationFrame(render);//添加动画效果
     var time = Date.now() * 0.0005;
+    pointLight.position.y = Math.cos(time) * 0.75 + 1.25;
 }
