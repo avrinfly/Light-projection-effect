@@ -92,9 +92,9 @@ var lightgeometry = new THREE.SphereBufferGeometry(0.02, 16, 8);
 var material = new THREE.MeshStandardMaterial({
     color: 0xFFFFFF,
     //自身发光
-    emissive: 0xFFFFFF,
+    emissive: 0xcf0267,
     //自身发光强度
-    emissiveIntensity:8
+    emissiveIntensity:80
 });
 pointLight.add(new THREE.Mesh(lightgeometry, material));
 pointLight.position.set(0, 2, 0);
@@ -114,3 +114,7 @@ function render() {
     //全局添加投影
     webGLRender.shadowMap.enabled = true;
 }
+//轨道控制器
+var controls = new THREE.OrbitControls(camera);
+controls.target.set(0, .2, .2);
+controls.update();
