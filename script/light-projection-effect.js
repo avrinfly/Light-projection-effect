@@ -36,18 +36,43 @@ var floorMesh = new THREE.Mesh(floorGeometry, floorMat);
 floorMesh.receiveShadow = true;
 floorMesh.rotation.x = -Math.PI / 2;
 //加载texture的一个类
-var texture = new THREE.TextureLoader().load('../images/hardwood2_diffuse.jpg', function (map) {
-    map.wrapS = THREE.RepeatWrapping;
-    map.wrapT = THREE.RepeatWrapping;
-    map.repeat.set(10, 24);
-    //匹配材质
-    floorMat.map = map;
-    //更新当前的这个材质
-    floorMat.needsUpdate = true;
-});
+var texture = new THREE.TextureLoader();
+texture.load(
+    '../images/hardwood2_diffuse.jpg',
+    function (map) { //onLoad回调
+        map.wrapS = THREE.RepeatWrapping;
+        map.wrapT = THREE.RepeatWrapping;
+        map.repeat.set(10, 24);
+        //匹配材质
+        floorMat.map = map;
+        //更新当前的这个材质
+        floorMat.needsUpdate = true;
+    },
+    undefined,//onProgress 加载过程中的回调
+    function (err) { //加载错误时的回调
+        console.error(err);
+    });
 //将材质添加到场景中
 scene.add(floorMesh);
-
+//地板上的物体
+var boxMat = new THREE.MeshStandardMaterial({ //标准网格材质
+    color: 0xfff,
+    roughness: .75,
+    metalness:.2
+})
+texture.load(
+    '../images/floor2.png',
+    function (map) {
+        map.wrapS = THREE.RepeatWrapping;//定义了纹理贴图在水平方向上将如何包裹
+        map.wrapT = THREE.RepeatWrapping;//定义了纹理贴图在垂直方向上将如何包裹
+        map.repeat.set(1, 1);
+        boxMat.map = map;
+        boxMat.needsUpdate = true;//实时更新地板上的物体
+    });
+var boxGeometry = new THREE.BoxBufferGeometry(.5, .5, .5);
+var boxMesh = new THREE.Mesh(boxGeometry, boxMat);
+//将物体添加到场景中
+scene.add(boxMesh);
 //添加环境光，环境光会均匀的照亮场景中的所有物体。
 //如果没有环境光整个场景都是漆黑的
 // var ambientLight = new THREE.AmbientLight(0Xffffff);
