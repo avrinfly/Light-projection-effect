@@ -50,27 +50,12 @@ scene.add(floorMesh);
 var ambientLight = new THREE.AmbientLight(0Xffffff);
 scene.add(ambientLight);
 
-//添加一个点光源
-var pointLight = new THREE.PointLight(0xffee88, 1, 100, 2);
-//加一个光的具体的展现
-var boxgeometry = new THREE.SphereBufferGeometry(0.02, 16, 8); 
-var material = new THREE.MeshStandardMaterial({//标准网格材质
-    color: 0xFFFFFF,
-    emissive: 0xFFFFFF,
-    emissiveIntensity: 3
-});
-
-pointLight.add(new THREE.Mesh(boxgeometry, material));
-pointLight.position.set(0, 2, 0);//修改光源位置
-scene.add(pointLight);//追加光源到场景中
-
 //将整个渲染器加到dom中
 document.body.appendChild(webGLRender.domElement);
 render();
 
 function render() {
     webGLRender.render(scene, camera);//用相机(camera)渲染一个场景(scene)
-    pointLight.position.y = Math.cos(time) * 0.75 + 1.25;//修改光源位置
     requestAnimationFrame(render);//添加动画效果
     var time = Date.now() * 0.0005;
 }
