@@ -32,6 +32,9 @@ var floorMat = new THREE.MeshStandardMaterial({
 var floorGeometry = new THREE.PlaneBufferGeometry(20, 20);
 //将材质作为网格输出
 var floorMesh = new THREE.Mesh(floorGeometry, floorMat);
+//地板添加阴影
+floorMesh.receiveShadow = true;
+floorMesh.rotation.x = -Math.PI / 2;
 //加载texture的一个类
 var texture = new THREE.TextureLoader().load('../images/hardwood2_diffuse.jpg', function (map) {
     map.wrapS = THREE.RepeatWrapping;
@@ -47,8 +50,8 @@ scene.add(floorMesh);
 
 //添加环境光，环境光会均匀的照亮场景中的所有物体。
 //如果没有环境光整个场景都是漆黑的
-var ambientLight = new THREE.AmbientLight(0Xffffff);
-scene.add(ambientLight);
+// var ambientLight = new THREE.AmbientLight(0Xffffff);
+// scene.add(ambientLight);
 //添加点光源
 var pointLight = new THREE.PointLight(0xffee88, 1, 100, 2);
 //添加点光源的具体表现
@@ -58,7 +61,7 @@ var material = new THREE.MeshStandardMaterial({
     //自身发光
     emissive: 0xFFFFFF,
     //自身发光强度
-    emissiveIntensity:5
+    emissiveIntensity:15
 });
 pointLight.add(new THREE.Mesh(lightgeometry, material));
 pointLight.position.set(0, 2, 0);
