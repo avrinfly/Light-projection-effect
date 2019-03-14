@@ -71,5 +71,5 @@ function render() {
     webGLRender.render(scene, camera);//用相机(camera)渲染一个场景(scene)
     requestAnimationFrame(render);//添加动画效果
     var time = Date.now() * 0.0005;
-    pointLight.position.y = Math.cos(time) * 0.75 + 1.25;
+    pointLight.position.y = Math.cos(time) * 0.75 + 1.25;//给点光源添加动态移动效果
 }
