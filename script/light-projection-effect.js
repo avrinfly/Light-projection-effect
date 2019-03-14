@@ -68,9 +68,16 @@ texture.load(
         map.repeat.set(1, 1);
         boxMat.map = map;
         boxMat.needsUpdate = true;//实时更新地板上的物体
+    },
+    undefined,
+    function (err) {
+        console.error(err);
     });
 var boxGeometry = new THREE.BoxBufferGeometry(.5, .5, .5);
 var boxMesh = new THREE.Mesh(boxGeometry, boxMat);
+boxMesh.position.set(.5, .25, 1);
+//物体开启阴影
+boxMesh.castShadow = true;
 //将物体添加到场景中
 scene.add(boxMesh);
 //添加环境光，环境光会均匀的照亮场景中的所有物体。
@@ -90,6 +97,8 @@ var material = new THREE.MeshStandardMaterial({
 });
 pointLight.add(new THREE.Mesh(lightgeometry, material));
 pointLight.position.set(0, 2, 0);
+//对光开启影子
+pointLight.castShadow = true;
 scene.add(pointLight);
 //将整个渲染器加到dom中
 document.body.appendChild(webGLRender.domElement);
@@ -99,5 +108,6 @@ function render() {
     webGLRender.render(scene, camera);//用相机(camera)渲染一个场景(scene)
     requestAnimationFrame(render);//添加动画效果
     var time = Date.now() * 0.0005;
-    pointLight.position.y = Math.cos(time) * 0.75 + 1.25;//给点光源添加动态移动效果
+    pointLight.position.y = Math.cos(time) * 0.75 + 1.5;//给点光源添加动态移动效果
+    webGLRender.shadowMap.enabled = true;
 }
