@@ -1,7 +1,10 @@
 # 简介
 基于threejs的web3D 灯光投影效果
 
-## 如何查看
+## 在线演示地址
+在线演示地址点击[这里](https://avrinfly.github.io/Light-projection-effect/)
+
+## 如何在本地查看
 
 1. 代码clone到本地
 2. 安装 `nodejs`
