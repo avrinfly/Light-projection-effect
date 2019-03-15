@@ -38,7 +38,7 @@ floorMesh.rotation.x = -Math.PI / 2;
 //加载texture的一个类
 var texture = new THREE.TextureLoader();
 texture.load(
-    '../images/hardwood2_diffuse.jpg',
+    'Light-projection-effect/images/hardwood2_diffuse.jpg',
     function (map) { //onLoad回调
         map.wrapS = THREE.RepeatWrapping;
         map.wrapT = THREE.RepeatWrapping;
@@ -62,7 +62,7 @@ var boxMat = new THREE.MeshStandardMaterial({ //标准网格材质
     metalness:.2
 })
 texture.load(
-    '../images/floor2.png',
+    'Light-projection-effect/images/floor2.png',
     function (map) {
         map.wrapS = THREE.RepeatWrapping;//定义了纹理贴图在水平方向上将如何包裹
         map.wrapT = THREE.RepeatWrapping;//定义了纹理贴图在垂直方向上将如何包裹
