@@ -39,7 +39,7 @@ floorMesh.rotation.x = -Math.PI / 2;
 
 var texture = new THREE.TextureLoader();
 texture.load(
-    './Light-projection-effect/images/hardwood2_diffuse.jpg',
+    'https://avrinfly.github.io/Light-projection-effect/images/hardwood2_diffuse.jpg',
     function (map) { //onLoad回调
         map.wrapS = THREE.RepeatWrapping;
         map.wrapT = THREE.RepeatWrapping;
